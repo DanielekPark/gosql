@@ -14,18 +14,18 @@ import (
 var db *sql.DB
 
 type Result struct {
-	id      int64
-	name    string
-	link    string
-	detials string
+	Id      int64
+	Name    string
+	Link    string
+	Details string
 	Types   string
-	tags    string
+	Tags    string
 }
 
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("failed to load env line 28 ", err)
+		log.Fatal("failed to load env", err)
 	}
 
 	// Database connection
@@ -43,7 +43,7 @@ func main() {
 }
 
 func GetLinks(c *gin.Context) {
-	query := "SELECT name FROM links WHERE id < 20"
+	query := "SELECT * FROM links WHERE id < 20"
 	res, err := db.Query(query)
 	defer res.Close()
 	if err != nil {
@@ -53,7 +53,7 @@ func GetLinks(c *gin.Context) {
 	results := []Result{}
 	for res.Next() {
 		var link Result
-		err := res.Scan(&link.Types)
+		err := res.Scan(&link.Id, &link.Name, &link.Link, &link.Details, &link.Types, &link.Tags)
 		if err != nil {
 			log.Fatal("(GetLinks) res.Scan", err)
 		}
