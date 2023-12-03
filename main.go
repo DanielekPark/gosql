@@ -73,7 +73,6 @@ func CreateLink(c *gin.Context) {
 
 	// POST Request
 	query := `INSERT INTO links (id, name, link, details, type, tags) VALUES (?, ?, ?, ?, ?, ?)`
-	//null, "Render", "https://render.com/", "Unified cloud to build and run all your apps and auto deploys from Git.", "Frontend Backend", "Render website host hosting api database apps free auto deploy"
 
 	res, err := db.Exec(query, newLink.Id, newLink.Name, newLink.Link, newLink.Details, newLink.Types, newLink.Tags)
 
